@@ -16,13 +16,17 @@ const Logo = styled.img`
 
 const AppBarStyled = styled(AppBar)`
   color: #5f6368;
-  box-shadow: inset 0 -1px 0 0 #dadce0;
+  box-shadow: inset 0 -1px 0 0 #dadce0 !important;
 `;
 
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBarStyled position="static" color="inherit">
+      <AppBarStyled
+        position="fixed"
+        color="inherit"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
         <Toolbar>
           <IconButton
             size="large"
