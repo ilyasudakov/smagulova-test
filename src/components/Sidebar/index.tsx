@@ -1,3 +1,9 @@
+import Drawer from "@mui/material/Drawer";
+
 export default function Sidebar() {
-  return <div>123</div>;
+  return (
+    <Drawer variant="permanent" open={true}>
+      123
+    </Drawer>
+  );
 }

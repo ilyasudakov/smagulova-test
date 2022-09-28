@@ -1,22 +1,28 @@
+import styled from "styled-components";
+
 import { Box, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
+
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
+const Logo = styled.img`
+  max-width: 44px;
+  padding-right: 4px;
+`;
+
+const AppBarStyled = styled(AppBar)`
+  color: #5f6368;
+  box-shadow: inset 0 -1px 0 0 #dadce0;
+`;
+
 export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        color="inherit"
-        sx={{
-          color: "#5f6368",
-          boxShadow: "inset 0 -1px 0 0 #dadce0;",
-        }}
-      >
+      <AppBarStyled position="static" color="inherit">
         <Toolbar>
           <IconButton
             size="large"
@@ -27,11 +33,7 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <img
-            src="/keep_logo.png"
-            alt="logo"
-            style={{ maxWidth: "44px", paddingRight: "4px" }}
-          />
+          <Logo src="/keep_logo.png" alt="logo" />
           <Typography
             variant="h5"
             noWrap
@@ -58,16 +60,14 @@ export default function Header() {
               size="large"
               edge="end"
               aria-label="account of current user"
-              //   aria-controls={menuId}
               aria-haspopup="true"
-              //   onClick={handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
             </IconButton>
           </Box>
         </Toolbar>
-      </AppBar>
+      </AppBarStyled>
     </Box>
   );
 }
