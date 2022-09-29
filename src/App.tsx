@@ -6,17 +6,25 @@ import Toolbar from "@mui/material/Toolbar";
 
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import Workspace from "./components/Workspace";
 
-export const MainContext = createContext<{
+type noteType = { value: string; id: string };
+export type MainContextType = {
   menuIsOpen: boolean;
   setOpenMenu: () => void;
-}>({
+  notes: noteType[];
+  addNote: (note: { value: noteType["value"] }) => void;
+};
+export const MainContext = createContext<MainContextType>({
   menuIsOpen: true,
   setOpenMenu: () => {},
+  addNote: () => {},
+  notes: [],
 });
 
 function App() {
   const [menuIsOpen, setOpenMenu] = useState(true);
+  const [notes, setNotes] = useState<noteType[]>([]);
 
   return (
     <>
@@ -25,6 +33,12 @@ function App() {
         value={{
           menuIsOpen,
           setOpenMenu: () => setOpenMenu(!menuIsOpen),
+          notes,
+          addNote: (note) =>
+            setNotes((notes) => [
+              ...notes,
+              { ...note, id: new Date().toISOString() },
+            ]),
         }}
       >
         <Header />
@@ -32,7 +46,7 @@ function App() {
           <Sidebar />
           <Box component="main" sx={{ flexGrow: 1 }}>
             <Toolbar />
-            123 asd fasd fasd fasd fasdf
+            <Workspace />
           </Box>
         </Box>
       </MainContext.Provider>
