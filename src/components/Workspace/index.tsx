@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Box } from "@mui/material";
 
 import CreateNoteBar from "./CreateNoteBar";
-import { MainContext } from "../../App";
+import { MainContext, PageToStatus } from "../../App";
 import MasonryList from "./MasonryList";
 
 const Wrapper = styled(Box)`
@@ -13,14 +13,15 @@ const Wrapper = styled(Box)`
 `;
 
 export default function Workspace() {
-  const { notes, addNote, searchQuery, changeStatus } = useContext(MainContext);
+  const { notes, addNote, searchQuery, changeStatus, curPage } =
+    useContext(MainContext);
 
   return (
     <Wrapper>
       <CreateNoteBar addNote={addNote} />
       <MasonryList
         changeStatus={changeStatus}
-        notes={notes.filter(({ status }) => status === "Активно")}
+        notes={notes.filter(({ status }) => status === PageToStatus[curPage])}
         searchQuery={searchQuery}
       />
     </Wrapper>

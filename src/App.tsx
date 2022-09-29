@@ -14,6 +14,11 @@ type noteType = {
   status: "Активно" | "Архив" | "Корзина";
 };
 type pages = "Заметки" | "Архив" | "Корзина";
+export const PageToStatus: { [i in pages]: noteType["status"] } = {
+  Заметки: "Активно",
+  Архив: "Архив",
+  Корзина: "Корзина",
+};
 export type MainContextType = {
   curPage: pages;
   setCurPage: (page: pages) => void;
