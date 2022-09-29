@@ -46,7 +46,7 @@ export default function CreateNoteBar({
           onKeyDown={(e) => {
             if (e.key !== "Enter") return;
             setNote("");
-            addNote({ value: note });
+            addNote({ value: note, status: "Активно" });
           }}
         />
       </Search>

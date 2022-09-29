@@ -8,23 +8,47 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Workspace from "./components/Workspace";
 
-type noteType = { value: string; id: string };
+type noteType = {
+  value: string;
+  id: string;
+  status: "Активно" | "Архив" | "Корзина";
+};
+type pages = "Заметки" | "Архив" | "Корзина";
 export type MainContextType = {
+  curPage: pages;
+  setCurPage: (page: pages) => void;
   menuIsOpen: boolean;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
   setOpenMenu: () => void;
   notes: noteType[];
-  addNote: (note: { value: noteType["value"] }) => void;
+  addNote: (note: {
+    value: noteType["value"];
+    status: noteType["status"];
+  }) => void;
+  changeStatus: (id: string, status: noteType["status"]) => void;
 };
 export const MainContext = createContext<MainContextType>({
   menuIsOpen: true,
+  searchQuery: "",
+  setSearchQuery: () => {},
+  setCurPage: () => {},
   setOpenMenu: () => {},
   addNote: () => {},
+  changeStatus: () => {},
   notes: [],
+  curPage: "Заметки",
 });
 
 function App() {
   const [menuIsOpen, setOpenMenu] = useState(true);
-  const [notes, setNotes] = useState<noteType[]>([]);
+  const [curPage, setCurPage] = useState<pages>("Заметки");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [notes, setNotes] = useState<noteType[]>([
+    { id: "1", value: "Сделать это сделать это", status: "Активно" },
+    { id: "2", value: "Сделать это сегодня", status: "Активно" },
+    { id: "3", value: "Сделать это завтра", status: "Активно" },
+  ]);
 
   return (
     <>
@@ -32,6 +56,10 @@ function App() {
       <MainContext.Provider
         value={{
           menuIsOpen,
+          curPage,
+          setCurPage,
+          searchQuery,
+          setSearchQuery: (value) => setSearchQuery(value.toLocaleLowerCase()),
           setOpenMenu: () => setOpenMenu(!menuIsOpen),
           notes,
           addNote: (note) =>
@@ -39,6 +67,12 @@ function App() {
               ...notes,
               { ...note, id: new Date().toISOString() },
             ]),
+          changeStatus: (id, status) =>
+            setNotes((notes) =>
+              notes.map((item) =>
+                item.id === id ? { ...item, status: status } : item
+              )
+            ),
         }}
       >
         <Header />

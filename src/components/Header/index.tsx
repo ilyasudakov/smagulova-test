@@ -23,7 +23,7 @@ const AppBarStyled = styled(AppBar)`
 `;
 
 export default function Header() {
-  const { setOpenMenu } = useContext(MainContext);
+  const { setOpenMenu, setSearchQuery, searchQuery } = useContext(MainContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarStyled
@@ -60,7 +60,10 @@ export default function Header() {
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }}>
-            <Searchbar />
+            <Searchbar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton size="large" aria-label="Search" color="inherit">

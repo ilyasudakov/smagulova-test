@@ -11,15 +11,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-import { MainContext } from "../../App";
+import { MainContext, MainContextType } from "../../App";
 
 const drawerWidthMax = 240;
 const drawerWidthMin = 80;
 
-const DrawerStyled = styled(Drawer)<{
-  fullWidth: boolean;
-}>`
+type PropTypes = {
+  isActive?: boolean;
+  fullWidth?: boolean;
+};
+
+const DrawerStyled = styled(Drawer)<PropTypes>`
   width: ${({ fullWidth }) =>
     fullWidth ? `${drawerWidthMax}px` : `${drawerWidthMin}px`};
   flex-shrink: 0;
@@ -30,21 +35,16 @@ const DrawerStyled = styled(Drawer)<{
   }
 `;
 
-const Icon = styled(ListItemIcon)<{ isActive: boolean }>`
+const Icon = styled(ListItemIcon)<PropTypes>`
   padding: 0 1rem;
-  ${({ isActive }) => isActive && `color: black;`}
+  ${({ isActive }) => isActive && `& svg {fill: #202124;}`}
 `;
 
-const ListItemStyled = styled(ListItem)<{
-  fullWidth: boolean;
-}>`
+const ListItemStyled = styled(ListItem)<PropTypes>`
   ${({ fullWidth }) => !fullWidth && `width: fit-content !important;`}
 `;
 
-const ListButton = styled(ListItemButton)<{
-  isActive: boolean;
-  fullWidth: boolean;
-}>`
+const ListButton = styled(ListItemButton)<PropTypes>`
   background-color: ${({ isActive }) =>
     isActive ? "#feefc3" : "#fff"} !important;
   border-radius: 0 25px 25px 0 !important;
@@ -58,33 +58,50 @@ const ListButton = styled(ListItemButton)<{
     padding: 8px 12px !important;
     }`};
 `;
+const ListItemTextStyled = styled(ListItemText)<PropTypes>`
+  ${({ fullWidth }) => !fullWidth && "display: none"}
+  color: #202124;
+  ${({ isActive }) => isActive && ``}
+  margin-left: 15px;
+`;
 
 export default function Sidebar() {
-  const { menuIsOpen } = useContext(MainContext);
+  const { menuIsOpen, curPage, setCurPage } = useContext(MainContext);
+
+  const menuItems: {
+    text: MainContextType["curPage"];
+    icon: React.ReactNode;
+  }[] = [
+    { text: "Заметки", icon: <LightbulbOutlinedIcon /> },
+    { text: "Архив", icon: <ArchiveOutlinedIcon /> },
+    { text: "Корзина", icon: <DeleteOutlineOutlinedIcon /> },
+  ];
 
   return (
     <DrawerStyled variant="permanent" fullWidth={menuIsOpen} open={false}>
       <Toolbar />
       <Box sx={{ overflow: "auto" }}>
         <List>
-          {["Заметки", "Архив", "Корзина"].map((text, index) => (
+          {menuItems.map(({ text, icon }) => (
             <ListItemStyled fullWidth={menuIsOpen} key={text} disablePadding>
-              <ListButton fullWidth={menuIsOpen} isActive={index === 0}>
+              <ListButton
+                fullWidth={menuIsOpen}
+                isActive={text === curPage}
+                onClick={() => setCurPage(text)}
+              >
                 <Icon
-                  color={index === 0 ? "black" : ""}
-                  isActive={index === 0}
+                  color={text === curPage ? "black" : ""}
+                  isActive={text === curPage}
                   sx={{
                     ...(menuIsOpen ? {} : { padding: 0, minWidth: "auto" }),
                   }}
                 >
-                  <LightbulbOutlinedIcon />
+                  {icon}
                 </Icon>
-                <ListItemText
+                <ListItemTextStyled
                   primaryTypographyProps={{ fontSize: "14px" }}
                   primary={text}
-                  sx={{
-                    ...(menuIsOpen ? {} : { display: "none" }),
-                  }}
+                  fullWidth={menuIsOpen}
                 />
               </ListButton>
             </ListItemStyled>

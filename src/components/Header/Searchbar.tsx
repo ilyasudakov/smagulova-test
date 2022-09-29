@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
+import { MainContextType } from "../../App";
 
 const Search = styled("div")`
   position: relative;
@@ -39,7 +40,13 @@ const SearchWrapper = styled.div`
   padding-right: 30px;
 `;
 
-export default function Searchbar() {
+export default function Searchbar({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: MainContextType["searchQuery"];
+  setSearchQuery: MainContextType["setSearchQuery"];
+}) {
   return (
     <SearchWrapper>
       <Search>
@@ -49,6 +56,8 @@ export default function Searchbar() {
         <StyledInputBase
           placeholder="Search"
           inputProps={{ "aria-label": "search" }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </Search>
     </SearchWrapper>
