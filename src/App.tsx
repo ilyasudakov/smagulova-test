@@ -1,22 +1,41 @@
+import { useState, createContext } from "react";
+
 import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import React from "react";
+
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 
+export const MainContext = createContext<{
+  menuIsOpen: boolean;
+  setOpenMenu: () => void;
+}>({
+  menuIsOpen: true,
+  setOpenMenu: () => {},
+});
+
 function App() {
+  const [menuIsOpen, setOpenMenu] = useState(true);
+
   return (
     <>
       <CssBaseline />
-      <Header />
-      <Box sx={{ display: "flex" }}>
-        <Sidebar />
-        <Box component="main" sx={{ flexGrow: 1 }}>
-          <Toolbar />
-          123 asd fasd fasd fasd fasdf
+      <MainContext.Provider
+        value={{
+          menuIsOpen,
+          setOpenMenu: () => setOpenMenu(!menuIsOpen),
+        }}
+      >
+        <Header />
+        <Box sx={{ display: "flex" }}>
+          <Sidebar />
+          <Box component="main" sx={{ flexGrow: 1 }}>
+            <Toolbar />
+            123 asd fasd fasd fasd fasdf
+          </Box>
         </Box>
-      </Box>
+      </MainContext.Provider>
     </>
   );
 }

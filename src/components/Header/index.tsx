@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import styled from "styled-components";
-import { alpha } from "@mui/material/styles";
 
 import { Box, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -10,6 +10,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import { MainContext } from "../../App";
 
 const Logo = styled.img`
   max-width: 44px;
@@ -57,6 +58,7 @@ const SearchWrapper = styled.div`
 `;
 
 export default function Header() {
+  const { setOpenMenu } = useContext(MainContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarStyled
@@ -74,6 +76,7 @@ export default function Header() {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: "4px" }}
+              onClick={setOpenMenu}
             >
               <MenuIcon />
             </IconButton>
