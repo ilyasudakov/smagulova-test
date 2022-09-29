@@ -23,10 +23,11 @@ const StyledInputBase = styled(InputBase)`
     padding: 0;
   }
 `;
-
-const SearchWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
+  margin-bottom: 2rem;
 `;
+
 export default function CreateNoteBar({
   addNote,
 }: {
@@ -35,7 +36,7 @@ export default function CreateNoteBar({
   const [note, setNote] = useState("");
 
   return (
-    <SearchWrapper>
+    <Wrapper>
       <Search>
         <StyledInputBase
           placeholder="Заметка.."
@@ -49,6 +50,6 @@ export default function CreateNoteBar({
           }}
         />
       </Search>
-    </SearchWrapper>
+    </Wrapper>
   );
 }

@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 
 import CreateNoteBar from "./CreateNoteBar";
 import { MainContext } from "../../App";
+import MasonryList from "./MasonryList";
 
 const Wrapper = styled(Box)`
   margin: 8px 1rem;
@@ -17,11 +18,7 @@ export default function Workspace() {
   return (
     <Wrapper>
       <CreateNoteBar addNote={addNote} />
-      <>
-        {notes.map(({ id, value }) => (
-          <div key={id}>{value}</div>
-        ))}
-      </>
+      <MasonryList notes={notes} />
     </Wrapper>
   );
 }
