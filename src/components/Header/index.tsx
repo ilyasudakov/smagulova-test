@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import styled from "styled-components";
 
 import { Box, Typography } from "@mui/material";
@@ -9,8 +8,9 @@ import Toolbar from "@mui/material/Toolbar";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { MainContext } from "../../App";
 import Searchbar from "./Searchbar";
+
+import useMainContext from "../../hooks/useMainContext";
 
 const Logo = styled.img`
   max-width: 44px;
@@ -23,7 +23,7 @@ const AppBarStyled = styled(AppBar)`
 `;
 
 export default function Header() {
-  const { setOpenMenu, setSearchQuery, searchQuery } = useContext(MainContext);
+  const { setOpenMenu, setSearchQuery, searchQuery } = useMainContext();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarStyled
@@ -33,7 +33,11 @@ export default function Header() {
       >
         <Toolbar>
           <Box
-            sx={{ display: "flex", alignItems: "center", minWidth: "232px" }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              minWidth: { xs: "150px", sm: "232px" },
+            }}
           >
             <IconButton
               size="large"
@@ -59,13 +63,14 @@ export default function Header() {
               Keep
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}>
             <Searchbar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
           </Box>
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box>
             <IconButton size="large" aria-label="Search" color="inherit">
               <SearchIcon />
             </IconButton>

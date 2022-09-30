@@ -3,7 +3,7 @@ import { Box, Modal, List } from "@mui/material";
 import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 
-import { MainContextType, noteType } from "../../App";
+import { MainContextType, noteType } from "../../hooks/useMainContext";
 import { actions } from "./actions";
 import Button from "@mui/material/Button/Button";
 
@@ -12,7 +12,12 @@ const ModalBox = styled(Box)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400;
+  width: fit-content;
+  min-width: 300px;
+  max-width: 80%;
+  min-height: 100px;
+  height: fit-content;
+  max-height: 80%;
   border-radius: 8px;
   outline: none;
   background-color: #fff;
@@ -20,6 +25,7 @@ const ModalBox = styled(Box)`
   padding: 4;
 `;
 const Input = styled(InputBase)`
+  width: 100%;
   padding: 12px 16px;
 `;
 const IconButtonStyled = styled(IconButton)`
@@ -51,6 +57,7 @@ export default function ModalNote({
       <ModalBox>
         <Input
           value={note.value}
+          multiline
           autoFocus
           onChange={(e) =>
             updateNote(note.id, { ...note, value: e.target.value })

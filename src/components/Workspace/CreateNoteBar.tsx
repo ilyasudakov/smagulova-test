@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { MainContextType } from "../../App";
+import { MainContextType } from "../../hooks/useMainContext";
 
 import InputBase from "@mui/material/InputBase";
 
@@ -43,6 +43,7 @@ export default function CreateNoteBar({
           placeholder="Заметка.."
           inputProps={{ "aria-label": "заметка" }}
           value={note}
+          autoFocus
           onChange={(e) => setNote(e.target.value)}
           onKeyDown={(e) => {
             if (e.key !== "Enter") return;

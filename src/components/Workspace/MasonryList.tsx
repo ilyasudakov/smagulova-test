@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import Masonry from "@mui/lab/Masonry";
 
-import { MainContextType } from "../../App";
+import { MainContextType } from "../../hooks/useMainContext";
 
 import ListItem from "./ListItem";
 import ModalNote from "./ModalNote";
@@ -37,7 +37,13 @@ export default function MasonryList({
         handleClose={handleClose}
         showModal={showModal}
         updateNote={updateNote}
-        note={notes.find(({ id }) => selectedNote === id) || notes[0]}
+        note={
+          notes.find(({ id }) => selectedNote === id) || {
+            value: "",
+            id: "",
+            status: "Активно",
+          }
+        }
       />
       <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
         {filteredNotes.map((note) => (

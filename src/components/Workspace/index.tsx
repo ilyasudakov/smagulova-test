@@ -1,11 +1,9 @@
-import { useContext } from "react";
-
 import styled from "styled-components";
 
 import { Box } from "@mui/material";
 
 import CreateNoteBar from "./CreateNoteBar";
-import { MainContext, PageToStatus } from "../../App";
+import useMainContext, { PageToStatus } from "../../hooks/useMainContext";
 import MasonryList from "./MasonryList";
 
 const Wrapper = styled(Box)`
@@ -13,8 +11,7 @@ const Wrapper = styled(Box)`
 `;
 
 export default function Workspace() {
-  const { notes, addNote, searchQuery, curPage, updateNote } =
-    useContext(MainContext);
+  const { notes, addNote, searchQuery, curPage, updateNote } = useMainContext();
 
   return (
     <Wrapper>

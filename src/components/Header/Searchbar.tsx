@@ -3,7 +3,8 @@ import styled from "styled-components";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-import { MainContextType } from "../../App";
+
+import { MainContextType } from "../../hooks/useMainContext";
 
 const Search = styled("div")`
   position: relative;

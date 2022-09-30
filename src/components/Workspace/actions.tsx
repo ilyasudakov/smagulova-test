@@ -1,4 +1,4 @@
-import { noteType } from "../../App";
+import { noteType } from "../../hooks/useMainContext";
 
 import ArchiveOutlined from "@mui/icons-material/ArchiveOutlined";
 import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
