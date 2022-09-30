@@ -66,7 +66,7 @@ export default function ModalNote({
           }
         />
         <List sx={{ display: "flex", padding: "12px 16px" }}>
-          {actions.map(({ icon, label }) => (
+          {actions.map(({ icon, label, callback }) => (
             <IconButtonStyled
               key={label}
               size="small"
@@ -75,7 +75,7 @@ export default function ModalNote({
               aria-label={label}
               onClick={() => {
                 handleClose();
-                updateNote(note.id, { ...note, status: label });
+                callback(note.id, { ...note, status: label });
               }}
             >
               {icon}

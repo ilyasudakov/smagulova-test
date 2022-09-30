@@ -1,6 +1,7 @@
 import ArchiveOutlined from "@mui/icons-material/ArchiveOutlined";
 import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
 import RestoreOutlinedIcon from "@mui/icons-material/RestoreOutlined";
+import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
 
 import useMainContext, { PageToStatus, noteType } from "./useMainContext";
 
@@ -30,7 +31,7 @@ export default function useActions() {
       callback: updateNote,
     },
     {
-      icon: <DeleteOutlineOutlined />,
+      icon: <ClearOutlinedIcon />,
       label: "Корзина",
       visibility: ["Корзина"],
       callback: deleteNote,
