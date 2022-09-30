@@ -4,20 +4,20 @@ import styled from "styled-components";
 import { MainContextType } from "../../App";
 
 import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
 
-const Search = styled("div")`
+const Input = styled("div")`
   position: relative;
   width: 100%;
   background-color: #fff;
   border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
   border-radius: 8px;
 `;
 
 const StyledInputBase = styled(InputBase)`
   color: inherit;
   width: 100%;
-  padding: 12px 16px;
+  padding: 8px 16px;
   & .MuiInputBase-input {
     width: 100%;
     padding: 0;
@@ -25,7 +25,8 @@ const StyledInputBase = styled(InputBase)`
 `;
 const Wrapper = styled.div`
   display: flex;
-  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: 32px auto 16px auto;
 `;
 
 export default function CreateNoteBar({
@@ -37,7 +38,7 @@ export default function CreateNoteBar({
 
   return (
     <Wrapper>
-      <Search>
+      <Input>
         <StyledInputBase
           placeholder="Заметка.."
           inputProps={{ "aria-label": "заметка" }}
@@ -49,7 +50,7 @@ export default function CreateNoteBar({
             addNote({ value: note, status: "Активно" });
           }}
         />
-      </Search>
+      </Input>
     </Wrapper>
   );
 }

@@ -59,10 +59,9 @@ const ListButton = styled(ListItemButton)<PropTypes>`
     }`};
 `;
 const ListItemTextStyled = styled(ListItemText)<PropTypes>`
-  ${({ fullWidth }) => !fullWidth && "display: none"}
+  ${({ fullWidth }) =>
+    !fullWidth && "display: none !important; margin-left: 15px;"}
   color: #202124;
-  ${({ isActive }) => isActive && ``}
-  margin-left: 15px;
 `;
 
 export default function Sidebar() {

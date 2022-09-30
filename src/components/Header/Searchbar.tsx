@@ -50,12 +50,12 @@ export default function Searchbar({
   return (
     <SearchWrapper>
       <Search>
-        <SearchIconButton size="medium" aria-label="Search" color="inherit">
+        <SearchIconButton size="medium" aria-label="поиск" color="inherit">
           <SearchIcon />
         </SearchIconButton>
         <StyledInputBase
-          placeholder="Search"
-          inputProps={{ "aria-label": "search" }}
+          placeholder="Поиск"
+          inputProps={{ "aria-label": "поиск" }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

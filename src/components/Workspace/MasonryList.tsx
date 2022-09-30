@@ -1,18 +1,11 @@
-import styled from "styled-components";
+import { useState } from "react";
 
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Typography,
-} from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 
 import { MainContextType } from "../../App";
-import IconButton from "@mui/material/IconButton";
-import ArchiveOutlined from "@mui/icons-material/ArchiveOutlined";
-import DeleteOutlineOutlined from "@mui/icons-material/DeleteOutlineOutlined";
+
+import ListItem from "./ListItem";
+import ModalNote from "./ModalNote";
 
 export default function MasonryList({
   notes,
@@ -23,62 +16,40 @@ export default function MasonryList({
   notes: MainContextType["notes"];
   changeStatus: MainContextType["changeStatus"];
 }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedNote, setSelectedNote] = useState<string | null>(null);
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedNote(null);
+  };
+  const handleOpen = (id: string) => {
+    setSelectedNote(id);
+    setShowModal(true);
+  };
+
+  const filteredNotes = notes.filter(({ value }) =>
+    value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+  );
   return (
-    <Masonry columns={{ xs: 3, sm: 4 }} spacing={2}>
-      {notes
-        .filter(({ value }) => value.includes(searchQuery))
-        .map(({ id, value }) => (
-          <CardItem
+    <>
+      <ModalNote
+        handleClose={handleClose}
+        showModal={showModal}
+        changeStatus={changeStatus}
+        note={notes.find(({ id }) => selectedNote === id) || notes[0]}
+      />
+      <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
+        {filteredNotes.map(({ id, value }) => (
+          <ListItem
             id={id}
             key={id}
             value={value}
             changeStatus={changeStatus}
+            onClick={() => handleOpen(id)}
           />
         ))}
-    </Masonry>
+      </Masonry>
+    </>
   );
 }
-
-const CardStyled = styled(Card)`
-  border: 1px solid #e0e0e0;
-  box-shadow: none !important;
-`;
-const CardItem = ({
-  value,
-  id,
-  changeStatus,
-}: {
-  id: string;
-  value: string;
-  changeStatus: MainContextType["changeStatus"];
-}) => {
-  return (
-    <CardStyled sx={{ width: "fit-content" }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {value}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <IconButton
-          size="small"
-          edge="start"
-          color="inherit"
-          aria-label="Архив"
-          onClick={() => changeStatus(id, "Архив")}
-        >
-          <ArchiveOutlined />
-        </IconButton>
-        <IconButton
-          size="small"
-          edge="start"
-          color="inherit"
-          aria-label="Удалить"
-          onClick={() => changeStatus(id, "Корзина")}
-        >
-          <DeleteOutlineOutlined />
-        </IconButton>
-      </CardActions>
-    </CardStyled>
-  );
-};

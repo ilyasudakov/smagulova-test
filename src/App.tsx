@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Workspace from "./components/Workspace";
 
-type noteType = {
+export type noteType = {
   value: string;
   id: string;
   status: "Активно" | "Архив" | "Корзина";
@@ -64,7 +64,7 @@ function App() {
           curPage,
           setCurPage,
           searchQuery,
-          setSearchQuery: (value) => setSearchQuery(value.toLocaleLowerCase()),
+          setSearchQuery,
           setOpenMenu: () => setOpenMenu(!menuIsOpen),
           notes,
           addNote: (note) =>
