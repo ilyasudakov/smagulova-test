@@ -31,19 +31,18 @@ export default function MasonryList({
   const filteredNotes = notes.filter(({ value }) =>
     value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
   );
+  const selected = notes.find(({ id }) => selectedNote === id) || {
+    value: "",
+    id: "",
+    status: "Активно",
+  };
   return (
     <>
       <ModalNote
         handleClose={handleClose}
         showModal={showModal}
         updateNote={updateNote}
-        note={
-          notes.find(({ id }) => selectedNote === id) || {
-            value: "",
-            id: "",
-            status: "Активно",
-          }
-        }
+        note={selected}
       />
       <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
         {filteredNotes.map((note) => (

@@ -9,6 +9,8 @@ import Workspace from "./components/Workspace";
 import { useMainContextProvider } from "./hooks/useMainContext";
 
 function App() {
+  //Получаем Provider и values контекста, который хранит в себе данные о:
+  //sidemenu, всех заметках, поисковом запросе, текущей навигации
   const { Provider, values } = useMainContextProvider();
 
   return (
@@ -21,9 +23,11 @@ function App() {
       >
         <Header />
         <Box sx={{ display: "flex" }}>
+          {/* Боковое меню */}
           <Sidebar />
           <Box component="main" sx={{ flexGrow: 1 }}>
             <Toolbar />
+            {/* Рабочая область */}
             <Workspace />
           </Box>
         </Box>

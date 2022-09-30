@@ -15,7 +15,9 @@ export default function Workspace() {
 
   return (
     <Wrapper>
+      {/* Поле создания заметок */}
       <CreateNoteBar addNote={addNote} />
+      {/* Список заметок */}
       <MasonryList
         updateNote={updateNote}
         notes={notes.filter(({ status }) => status === PageToStatus[curPage])}

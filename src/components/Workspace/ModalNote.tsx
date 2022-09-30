@@ -51,8 +51,8 @@ export default function ModalNote({
     <Modal
       open={showModal}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="окно-просмотр"
+      aria-describedby="окно-просмотр"
     >
       <ModalBox>
         <Input
