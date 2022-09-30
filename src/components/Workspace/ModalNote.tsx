@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 
 import { MainContextType, noteType } from "../../App";
 import { actions } from "./actions";
+import Button from "@mui/material/Button/Button";
 
 const ModalBox = styled(Box)`
   position: absolute;
@@ -14,7 +15,7 @@ const ModalBox = styled(Box)`
   width: 400;
   border-radius: 8px;
   outline: none;
-  background-color: #eee;
+  background-color: #fff;
   box-shadow: 24;
   padding: 4;
 `;
@@ -55,8 +56,7 @@ export default function ModalNote({
             updateNote(note.id, { ...note, value: e.target.value })
           }
         />
-        <List sx={{ padding: "12px 16px" }}>
-          <Box sx={{ flex: 1 }} />
+        <List sx={{ display: "flex", padding: "12px 16px" }}>
           {actions.map(({ icon, label }) => (
             <IconButtonStyled
               key={label}
@@ -72,6 +72,14 @@ export default function ModalNote({
               {icon}
             </IconButtonStyled>
           ))}
+          <Box sx={{ flexGrow: 1 }} />
+          <Button
+            color="primary"
+            sx={{ color: "#333", textTransform: "initial" }}
+            onClick={handleClose}
+          >
+            Закрыть
+          </Button>
         </List>
       </ModalBox>
     </Modal>
