@@ -50,6 +50,7 @@ export default function ModalNote({
       <ModalBox>
         <Input
           value={note.value}
+          autoFocus
           onChange={(e) =>
             updateNote(note.id, { ...note, value: e.target.value })
           }

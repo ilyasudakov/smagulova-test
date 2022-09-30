@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { Card, CardContent, CardActions, Typography } from "@mui/material";
 
-import { MainContextType } from "../../App";
+import { MainContextType, noteType } from "../../App";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
 import { actions } from "./actions";
@@ -22,21 +22,19 @@ const IconButtonStyled = styled(IconButton)`
 `;
 
 export default function ListItem({
-  value,
-  id,
-  changeStatus,
+  note,
+  updateNote,
   onClick,
 }: {
-  id: string;
-  value: string;
-  changeStatus: MainContextType["changeStatus"];
+  note: noteType;
+  updateNote: MainContextType["updateNote"];
   onClick: () => void;
 }) {
   return (
     <CardStyled onClick={onClick}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} gutterBottom>
-          {value}
+          {note.value}
         </Typography>
       </CardContent>
       <CardActions>
@@ -48,7 +46,10 @@ export default function ListItem({
             edge="start"
             color="inherit"
             aria-label={label}
-            onClick={() => changeStatus(id, label)}
+            onClick={(e) => {
+              e.stopPropagation();
+              updateNote(note.id, { ...note, status: label });
+            }}
           >
             {icon}
           </IconButtonStyled>

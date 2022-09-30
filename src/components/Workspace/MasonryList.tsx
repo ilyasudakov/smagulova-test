@@ -10,12 +10,10 @@ import ModalNote from "./ModalNote";
 export default function MasonryList({
   notes,
   searchQuery,
-  changeStatus,
   updateNote,
 }: {
   searchQuery: MainContextType["searchQuery"];
   notes: MainContextType["notes"];
-  changeStatus: MainContextType["changeStatus"];
   updateNote: MainContextType["updateNote"];
 }) {
   const [showModal, setShowModal] = useState(false);
@@ -42,13 +40,12 @@ export default function MasonryList({
         note={notes.find(({ id }) => selectedNote === id) || notes[0]}
       />
       <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
-        {filteredNotes.map(({ id, value }) => (
+        {filteredNotes.map((note) => (
           <ListItem
-            id={id}
-            key={id}
-            value={value}
-            changeStatus={changeStatus}
-            onClick={() => handleOpen(id)}
+            key={note.id}
+            note={note}
+            updateNote={updateNote}
+            onClick={() => handleOpen(note.id)}
           />
         ))}
       </Masonry>

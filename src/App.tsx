@@ -32,7 +32,6 @@ export type MainContextType = {
     status: noteType["status"];
   }) => void;
   updateNote: (id: string, note: noteType) => void;
-  changeStatus: (id: string, status: noteType["status"]) => void;
 };
 export const MainContext = createContext<MainContextType>({
   menuIsOpen: true,
@@ -42,7 +41,6 @@ export const MainContext = createContext<MainContextType>({
   setOpenMenu: () => {},
   addNote: () => {},
   updateNote: () => {},
-  changeStatus: () => {},
   notes: [],
   curPage: "Заметки",
 });
@@ -74,12 +72,6 @@ function App() {
               ...notes,
               { ...note, id: new Date().toISOString() },
             ]),
-          changeStatus: (id, status) =>
-            setNotes((notes) =>
-              notes.map((item) =>
-                item.id === id ? { ...item, status: status } : item
-              )
-            ),
           updateNote: (id, newNote) =>
             setNotes((notes) =>
               notes.map((item) => (item.id === id ? newNote : item))

@@ -13,14 +13,13 @@ const Wrapper = styled(Box)`
 `;
 
 export default function Workspace() {
-  const { notes, addNote, searchQuery, changeStatus, curPage, updateNote } =
+  const { notes, addNote, searchQuery, curPage, updateNote } =
     useContext(MainContext);
 
   return (
     <Wrapper>
       <CreateNoteBar addNote={addNote} />
       <MasonryList
-        changeStatus={changeStatus}
         updateNote={updateNote}
         notes={notes.filter(({ status }) => status === PageToStatus[curPage])}
         searchQuery={searchQuery}
