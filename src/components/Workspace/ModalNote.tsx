@@ -33,12 +33,12 @@ export default function ModalNote({
   handleClose,
   showModal,
   note,
-  changeStatus,
+  updateNote,
 }: {
   handleClose: () => void;
   showModal: boolean;
   note: noteType;
-  changeStatus: MainContextType["changeStatus"];
+  updateNote: MainContextType["updateNote"];
 }) {
   return (
     <Modal
@@ -48,7 +48,12 @@ export default function ModalNote({
       aria-describedby="modal-modal-description"
     >
       <ModalBox>
-        <Input value={note.value} />
+        <Input
+          value={note.value}
+          onChange={(e) =>
+            updateNote(note.id, { ...note, value: e.target.value })
+          }
+        />
         <List sx={{ padding: "12px 16px" }}>
           <Box sx={{ flex: 1 }} />
           {actions.map(({ icon, label }) => (
@@ -60,7 +65,7 @@ export default function ModalNote({
               aria-label={label}
               onClick={() => {
                 handleClose();
-                changeStatus(note.id, label);
+                updateNote(note.id, { ...note, status: label });
               }}
             >
               {icon}

@@ -11,10 +11,12 @@ export default function MasonryList({
   notes,
   searchQuery,
   changeStatus,
+  updateNote,
 }: {
   searchQuery: MainContextType["searchQuery"];
   notes: MainContextType["notes"];
   changeStatus: MainContextType["changeStatus"];
+  updateNote: MainContextType["updateNote"];
 }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState<string | null>(null);
@@ -36,7 +38,7 @@ export default function MasonryList({
       <ModalNote
         handleClose={handleClose}
         showModal={showModal}
-        changeStatus={changeStatus}
+        updateNote={updateNote}
         note={notes.find(({ id }) => selectedNote === id) || notes[0]}
       />
       <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={2}>
