@@ -25,7 +25,7 @@ export default function Sidebar() {
   return (
     <Styled.DrawerStyled
       variant="permanent"
-      fullWidth={menuIsOpen}
+      fullwidth={menuIsOpen}
       open={false}
     >
       <Toolbar />
@@ -33,12 +33,12 @@ export default function Sidebar() {
         <List>
           {menuItems.map(({ text, icon }) => (
             <Styled.ListItemStyled
-              fullWidth={menuIsOpen}
+              fullwidth={menuIsOpen}
               key={text}
               disablePadding
             >
               <Styled.ListButton
-                fullWidth={menuIsOpen}
+                fullwidth={menuIsOpen}
                 isActive={text === curPage}
                 onClick={() => setCurPage(text)}
               >
@@ -54,7 +54,7 @@ export default function Sidebar() {
                 <Styled.ListItemTextStyled
                   primaryTypographyProps={{ fontSize: "14px" }}
                   primary={text}
-                  fullWidth={menuIsOpen}
+                  fullwidth={menuIsOpen}
                 />
               </Styled.ListButton>
             </Styled.ListItemStyled>

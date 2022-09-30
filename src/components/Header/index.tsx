@@ -87,9 +87,10 @@ export default function Header() {
             <Searchbar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-              customButton={
-                <ArrowBackOutlinedIcon onClick={() => setShowSearch(false)} />
-              }
+              customIcon={{
+                icon: <ArrowBackOutlinedIcon />,
+                onClick: () => setShowSearch(false),
+              }}
             />
           </Box>
           <Box sx={{ flexGrow: 1 }} />
