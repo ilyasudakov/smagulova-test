@@ -10,6 +10,7 @@ export const Search = styled("div")`
   max-width: 720px;
   background-color: #f1f3f4;
   border-radius: 8px;
+  z-index: 10;
 `;
 
 export const StyledInputBase = styled(InputBase)`

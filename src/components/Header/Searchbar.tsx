@@ -7,9 +7,11 @@ import * as Styled from "./Searchbar.styled";
 export default function Searchbar({
   searchQuery,
   setSearchQuery,
+  customButton = <SearchIcon />,
 }: {
   searchQuery: MainContextType["searchQuery"];
   setSearchQuery: MainContextType["setSearchQuery"];
+  customButton?: React.ReactNode;
 }) {
   return (
     <Styled.SearchWrapper>
@@ -19,7 +21,7 @@ export default function Searchbar({
           aria-label="поиск"
           color="inherit"
         >
-          <SearchIcon />
+          {customButton}
         </Styled.SearchIconButton>
         <Styled.StyledInputBase
           placeholder="Поиск"

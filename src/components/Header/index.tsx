@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { useState } from "react";
+
 import { Box, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
@@ -8,6 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import Searchbar from "./Searchbar";
 
 import useMainContext from "../../hooks/useMainContext";
@@ -24,6 +27,8 @@ const AppBarStyled = styled(AppBar)`
 
 export default function Header() {
   const { setOpenMenu, setSearchQuery, searchQuery } = useMainContext();
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBarStyled
@@ -63,15 +68,38 @@ export default function Header() {
               Keep
             </Typography>
           </Box>
+          {/* Searchbar для >= tablet */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}>
             <Searchbar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
             />
           </Box>
+          {/* Searchbar для мобилок */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: showSearch ? "block" : "none", md: "none" },
+              position: "absolute",
+              left: 0,
+            }}
+          >
+            <Searchbar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              customButton={
+                <ArrowBackOutlinedIcon onClick={() => setShowSearch(false)} />
+              }
+            />
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
-            <IconButton size="large" aria-label="Search" color="inherit">
+            <IconButton
+              size="large"
+              aria-label="Search"
+              color="inherit"
+              onClick={() => setShowSearch(!showSearch)}
+            >
               <SearchIcon />
             </IconButton>
             <IconButton
