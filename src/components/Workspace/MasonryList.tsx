@@ -49,7 +49,6 @@ export default function MasonryList({
           <ListItem
             key={note.id}
             note={note}
-            updateNote={updateNote}
             onClick={() => handleOpen(note.id)}
           />
         ))}

@@ -4,8 +4,9 @@ import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 
 import { MainContextType, noteType } from "../../hooks/useMainContext";
-import { actions } from "./actions";
 import Button from "@mui/material/Button/Button";
+
+import useActions from "../../hooks/useActions";
 
 const ModalBox = styled(Box)`
   position: absolute;
@@ -47,6 +48,7 @@ export default function ModalNote({
   note: noteType;
   updateNote: MainContextType["updateNote"];
 }) {
+  const { actions } = useActions();
   return (
     <Modal
       open={showModal}

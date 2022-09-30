@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 import { Card, CardContent, CardActions, Typography } from "@mui/material";
 
-import { MainContextType, noteType } from "../../hooks/useMainContext";
+import { noteType } from "../../hooks/useMainContext";
 import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
-import { actions } from "./actions";
+import useActions from "../../hooks/useActions";
 
 const CardStyled = styled(Card)`
   width: fit-content;
@@ -33,13 +33,12 @@ const IconButtonStyled = styled(IconButton)`
 
 export default function ListItem({
   note,
-  updateNote,
   onClick,
 }: {
   note: noteType;
-  updateNote: MainContextType["updateNote"];
   onClick: () => void;
 }) {
+  const { actions } = useActions();
   return (
     <CardStyled onClick={onClick}>
       <CardContent>
@@ -49,7 +48,8 @@ export default function ListItem({
       </CardContent>
       <CardActions>
         <Box sx={{ flex: 1 }} />
-        {actions.map(({ icon, label }) => (
+        {/* Отображаем только те действия которые подходят по контексту */}
+        {actions.map(({ icon, label, callback }) => (
           <IconButtonStyled
             key={label}
             size="small"
@@ -58,7 +58,7 @@ export default function ListItem({
             aria-label={label}
             onClick={(e) => {
               e.stopPropagation();
-              updateNote(note.id, { ...note, status: label });
+              callback(note.id, { ...note, status: label });
             }}
           >
             {icon}
