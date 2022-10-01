@@ -1,12 +1,17 @@
 import { noteType } from "../../hooks/useMainContext";
 
-import { actionNoteType, NOTES_ACTIONS } from "./notesActions";
+import { addNote, deleteNote, NOTES_ACTIONS, updateNote } from "./notesActions";
 
 // Доступные действия для заметок
 
+type actionsType =
+  | ReturnType<typeof addNote>
+  | ReturnType<typeof updateNote>
+  | ReturnType<typeof deleteNote>;
+
 export default function notesReducer(
   notes: noteType[],
-  action: actionNoteType
+  action: actionsType
 ): noteType[] {
   switch (action.type) {
     case NOTES_ACTIONS.ADDED:

@@ -12,15 +12,15 @@ export const NOTES_ACTIONS = {
   DELETED: "notes/deleted",
 } as const;
 
-export const addNote = (note: noteType): actionNoteType => ({
+export const addNote = (note: noteType) => ({
   type: NOTES_ACTIONS.ADDED,
   payload: { note },
 });
-export const updateNote = (id: string, note: noteType): actionNoteType => ({
+export const updateNote = (id: string, note: noteType) => ({
   type: NOTES_ACTIONS.UPDATED,
   payload: { id, note },
 });
-export const deleteNote = (id: string): actionNoteType => ({
+export const deleteNote = (id: string) => ({
   type: NOTES_ACTIONS.DELETED,
   payload: { id },
 });

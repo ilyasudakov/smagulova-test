@@ -58,8 +58,16 @@ export default function ModalNote({
     >
       <ModalBox>
         <Input
+          value={note.title}
+          placeholder="Заголовок"
+          onChange={(e) =>
+            updateNote(note.id, { ...note, title: e.target.value })
+          }
+        />
+        <Input
           value={note.value}
           multiline
+          placeholder="Заметка.."
           autoFocus
           onChange={(e) =>
             updateNote(note.id, { ...note, value: e.target.value })

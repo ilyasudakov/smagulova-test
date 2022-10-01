@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { MainContextType } from "../../hooks/useMainContext";
 
 import InputBase from "@mui/material/InputBase";
+import { ClickAwayListener } from "@mui/base";
 
 const Input = styled("div")`
-  position: relative;
   width: 100%;
+  color: rgba(0, 0, 0, 0.702);
   background-color: #fff;
   border: 1px solid #e0e0e0;
   box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
@@ -34,24 +35,52 @@ export default function CreateNoteBar({
 }: {
   addNote: MainContextType["addNote"];
 }) {
+  const [title, setTitle] = useState("");
   const [note, setNote] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSubmit = () => {
+    setTitle("");
+    setNote("");
+    addNote({ title, value: note, status: "Активно" });
+    setIsOpen(false);
+  };
 
   return (
-    <Wrapper>
-      <Input>
-        <StyledInputBase
-          placeholder="Заметка.."
-          inputProps={{ "aria-label": "заметка" }}
-          value={note}
-          autoFocus
-          onChange={(e) => setNote(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key !== "Enter") return;
-            setNote("");
-            addNote({ value: note, status: "Активно" });
-          }}
-        />
-      </Input>
-    </Wrapper>
+    <ClickAwayListener onClickAway={() => note !== "" && handleSubmit()}>
+      <Wrapper>
+        <Input>
+          {isOpen ? (
+            <>
+              <StyledInputBase
+                placeholder="Название"
+                inputProps={{ "aria-label": "Название" }}
+                value={title}
+                autoFocus
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+              />
+              <StyledInputBase
+                placeholder="Заметка.."
+                inputProps={{ "aria-label": "заметка" }}
+                value={note}
+                sx={{ fontSize: 14 }}
+                autoFocus
+                onChange={(e) => setNote(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+              />
+            </>
+          ) : (
+            <StyledInputBase
+              placeholder="Заметка.."
+              inputProps={{ "aria-label": "заметка" }}
+              autoFocus
+              value=""
+              onClick={() => setIsOpen(true)}
+            />
+          )}
+        </Input>
+      </Wrapper>
+    </ClickAwayListener>
   );
 }

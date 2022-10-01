@@ -33,6 +33,7 @@ export default function MasonryList({
   );
   const selected = notes.find(({ id }) => selectedNote === id) || {
     value: "",
+    title: "",
     id: "",
     status: "Активно",
   };

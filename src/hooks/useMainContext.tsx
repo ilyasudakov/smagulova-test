@@ -14,6 +14,7 @@ import { addNote, deleteNote, updateNote } from "../store/notes/notesActions";
 // избегания лишних ререндеров, лучшей структуры кода, но такого было задание
 
 export type noteType = {
+  title: string;
   value: string;
   id: string;
   status: "Активно" | "Архив" | "Корзина";
@@ -37,6 +38,7 @@ export type MainContextType = {
 
   notes: noteType[];
   addNote: (note: {
+    title: noteType["title"];
     value: noteType["value"];
     status: noteType["status"];
   }) => void;
@@ -76,9 +78,14 @@ export function MainContextProvider({
   const [searchQuery, setSearchQuery] = useState("");
 
   const [notes, dispatch] = useReducer(notesReducer, [
-    { id: "1", value: "Моя задача №1", status: "Активно" },
-    { id: "2", value: "Выполнить техническое задание", status: "Архив" },
-    { id: "3", value: "Оформить баг-репорт", status: "Активно" },
+    { id: "1", title: "Название", value: "Моя задача №1", status: "Активно" },
+    {
+      id: "2",
+      title: "",
+      value: "Выполнить техническое задание",
+      status: "Архив",
+    },
+    { id: "3", title: "", value: "Оформить баг-репорт", status: "Активно" },
   ]);
   // Мемоизированные заметки
   const { notes: memoizedNotes, dispatch: memoizedDispatch } = useMemo(

@@ -42,6 +42,11 @@ export default function ListItem({
   return (
     <CardStyled onClick={onClick}>
       <CardContent>
+        {note.title !== "" ? (
+          <Typography sx={{ fontSize: 16, fontWeight: 500 }} gutterBottom>
+            {note.title}
+          </Typography>
+        ) : null}
         <Typography sx={{ fontSize: 14 }} gutterBottom>
           {note.value}
         </Typography>
