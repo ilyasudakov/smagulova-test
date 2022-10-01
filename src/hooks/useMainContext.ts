@@ -6,12 +6,8 @@ import {
   useMemo,
 } from "react";
 
-import {
-  addNote,
-  deleteNote,
-  notesReducer,
-  updateNote,
-} from "../store/notesReducer";
+import notesReducer from "../store/notes/notesReducer";
+import { addNote, deleteNote, updateNote } from "../store/notes/notesActions";
 
 // Контекст, который выполняет функцию глобального стора, в данном случае конечно
 // лучше использовать state менеджер типо Redux/MobX, для лучшей эффективности,
