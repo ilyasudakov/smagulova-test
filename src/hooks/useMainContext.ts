@@ -1,4 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useReducer,
+  useMemo,
+} from "react";
+
+import {
+  addNote,
+  deleteNote,
+  notesReducer,
+  updateNote,
+} from "../store/notesReducer";
 
 // Контекст, который выполняет функцию глобального стора, в данном случае конечно
 // лучше использовать state менеджер типо Redux/MobX, для лучшей эффективности,
@@ -60,11 +73,17 @@ export function useMainContextProvider() {
   const [menuIsOpen, setOpenMenu] = useState(true);
   const [curPage, setCurPage] = useState<pages>("Заметки");
   const [searchQuery, setSearchQuery] = useState("");
-  const [notes, setNotes] = useState<noteType[]>([
+
+  const [notes, dispatch] = useReducer(notesReducer, [
     { id: "1", value: "Моя задача №1", status: "Активно" },
     { id: "2", value: "Выполнить техническое задание", status: "Архив" },
     { id: "3", value: "Оформить баг-репорт", status: "Активно" },
   ]);
+  const { notes: memoizedNotes, dispatch: memoizedDispatch } = useMemo(
+    () => ({ notes, dispatch }),
+    [notes, dispatch]
+  );
+
   const values: MainContextType = {
     curPage,
     setCurPage,
@@ -75,21 +94,13 @@ export function useMainContextProvider() {
     menuIsOpen,
     setOpenMenu: () => setOpenMenu(!menuIsOpen),
 
-    notes,
+    notes: memoizedNotes,
     // Создание заметки (тут дата создания - unique id)
-    addNote: (note) =>
-      setNotes((notes) => [
-        ...notes,
-        { ...note, id: new Date().toISOString() },
-      ]),
+    addNote: (note) => memoizedDispatch(addNote({ ...note, id: "" })),
     // Редактирование заметки
-    updateNote: (id, newNote) =>
-      setNotes((notes) =>
-        notes.map((item) => (item.id === id ? newNote : item))
-      ),
+    updateNote: (id, note) => memoizedDispatch(updateNote(id, note)),
     // Удаление заметки
-    deleteNote: (id) =>
-      setNotes((notes) => notes.filter((item) => item.id !== id)),
+    deleteNote: (id) => memoizedDispatch(deleteNote(id)),
   };
   return {
     Provider: MainContext.Provider,
