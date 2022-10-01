@@ -44,7 +44,7 @@ export type MainContextType = {
   deleteNote: (id: string) => void;
 };
 // Создание и дефолт значения
-export const MainContext = createContext<MainContextType>({
+const initialValue: MainContextType = {
   menuIsOpen: true,
   setOpenMenu: () => {},
 
@@ -58,14 +58,19 @@ export const MainContext = createContext<MainContextType>({
   updateNote: () => {},
   deleteNote: () => {},
   notes: [],
-});
+};
+export const MainContext = createContext<MainContextType>(initialValue);
 
 // Хук для упрощения использования данных из контекста
 export default function useMainContext() {
   return useContext(MainContext);
 }
 // Хук для инициализации MainContext.Provider в корне проекта
-export function useMainContextProvider() {
+export function MainContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [menuIsOpen, setOpenMenu] = useState(true);
   const [curPage, setCurPage] = useState<pages>("Заметки");
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,31 +80,34 @@ export function useMainContextProvider() {
     { id: "2", value: "Выполнить техническое задание", status: "Архив" },
     { id: "3", value: "Оформить баг-репорт", status: "Активно" },
   ]);
+  // Мемоизированные заметки
   const { notes: memoizedNotes, dispatch: memoizedDispatch } = useMemo(
     () => ({ notes, dispatch }),
     [notes, dispatch]
   );
 
-  const values: MainContextType = {
-    curPage,
-    setCurPage,
+  return (
+    <MainContext.Provider
+      value={{
+        curPage,
+        setCurPage,
 
-    searchQuery,
-    setSearchQuery,
+        searchQuery,
+        setSearchQuery,
 
-    menuIsOpen,
-    setOpenMenu: () => setOpenMenu(!menuIsOpen),
+        menuIsOpen,
+        setOpenMenu: () => setOpenMenu(!menuIsOpen),
 
-    notes: memoizedNotes,
-    // Создание заметки (тут дата создания - unique id)
-    addNote: (note) => memoizedDispatch(addNote({ ...note, id: "" })),
-    // Редактирование заметки
-    updateNote: (id, note) => memoizedDispatch(updateNote(id, note)),
-    // Удаление заметки
-    deleteNote: (id) => memoizedDispatch(deleteNote(id)),
-  };
-  return {
-    Provider: MainContext.Provider,
-    values,
-  };
+        notes: memoizedNotes,
+        // Создание заметки (тут дата создания - unique id)
+        addNote: (note) => memoizedDispatch(addNote({ ...note, id: "" })),
+        // Редактирование заметки
+        updateNote: (id, note) => memoizedDispatch(updateNote(id, note)),
+        // Удаление заметки
+        deleteNote: (id) => memoizedDispatch(deleteNote(id)),
+      }}
+    >
+      {children}
+    </MainContext.Provider>
+  );
 }
