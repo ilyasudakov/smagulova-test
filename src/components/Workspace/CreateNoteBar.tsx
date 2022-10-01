@@ -47,7 +47,9 @@ export default function CreateNoteBar({
   };
 
   return (
-    <ClickAwayListener onClickAway={() => note !== "" && handleSubmit()}>
+    <ClickAwayListener
+      onClickAway={() => (note !== "" ? handleSubmit() : setIsOpen(false))}
+    >
       <Wrapper>
         <Input>
           {isOpen ? (
