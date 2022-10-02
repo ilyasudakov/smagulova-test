@@ -19,6 +19,24 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Google Sans";
+  src: url("./assets/fonts/GoogleSans/GoogleSans-Medium.woff");
+  src: local("Google Sans Medium"), local("GoogleSans-Medium"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("./assets/fonts/GoogleSans/GoogleSans-Bold.woff");
+  src: local("Google Sans Bold"), local("GoogleSans-Bold"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
 body {
   padding: 0;
   margin: 0;

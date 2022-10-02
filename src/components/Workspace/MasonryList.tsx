@@ -54,6 +54,7 @@ export default function MasonryList({
       notes.find(({ id }) => selectedNote === id) || {
         value: "",
         title: "",
+        lastEdited: new Date(),
         id: "",
         status: "Активно",
       },

@@ -48,7 +48,7 @@ export default function ListItem({
             {note.title}
           </Typography>
         ) : null}
-        <Typography sx={{ fontSize: 14 }} gutterBottom>
+        <Typography sx={{ fontSize: 18 }} gutterBottom>
           {note.value}
         </Typography>
       </CardContent>

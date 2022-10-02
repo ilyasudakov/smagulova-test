@@ -19,13 +19,14 @@ import useScreenSize from "./useScreenSize";
 // лучше использовать state менеджер типо Redux/MobX, для лучшей эффективности,
 // избегания лишних ререндеров, лучшей структуры кода, но такого было задание
 
+export type pages = "Заметки" | "Архив" | "Корзина";
 export type noteType = {
   title: string;
   value: string;
+  lastEdited: Date;
   id: string;
   status: "Активно" | "Архив" | "Корзина";
 };
-export type pages = "Заметки" | "Архив" | "Корзина";
 export const PageToStatus: { [i in pages]: noteType["status"] } = {
   Заметки: "Активно",
   Архив: "Архив",
@@ -77,14 +78,27 @@ const initialValue: MainContextType = {
 export const MainContext = createContext<MainContextType>(initialValue);
 
 const defaultValue: noteType[] = [
-  { id: "1", title: "Очень важно", value: "Моя задача №1", status: "Активно" },
+  {
+    id: "1",
+    lastEdited: new Date(),
+    title: "Очень важно",
+    value: "Моя задача №1",
+    status: "Активно",
+  },
   {
     id: "2",
+    lastEdited: new Date(),
     title: "",
     value: "Выполнить техническое задание",
     status: "Архив",
   },
-  { id: "3", title: "", value: "Оформить баг-репорт", status: "Активно" },
+  {
+    id: "3",
+    lastEdited: new Date(),
+    title: "",
+    value: "Оформить баг-репорт",
+    status: "Активно",
+  },
 ];
 
 // Хук для упрощения использования данных из контекста
@@ -131,7 +145,7 @@ export function MainContextProvider({
 
         notes: memoizedNotes,
         // Создание заметки (тут дата создания - unique id)
-        addNote: (note) => memoizedDispatch(addNote({ ...note, id: "" })),
+        addNote: (note) => memoizedDispatch(addNote(note)),
         // Редактирование заметки
         updateNote: (id, note) => memoizedDispatch(updateNote(id, note)),
         // Удаление заметки

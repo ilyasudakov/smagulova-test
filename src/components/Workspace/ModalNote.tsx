@@ -1,5 +1,5 @@
 import InputBase from "@mui/material/InputBase";
-import { Box, Modal, List } from "@mui/material";
+import { Box, Modal, List, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 
@@ -7,6 +7,8 @@ import { MainContextType, noteType } from "../../hooks/useMainContext";
 import Button from "@mui/material/Button/Button";
 
 import useActions from "../../hooks/useActions";
+
+import { fromNowTimeFormat } from "../../utils/time";
 
 const ModalBox = styled(Box)`
   position: absolute;
@@ -36,6 +38,12 @@ const IconButtonStyled = styled(IconButton)`
     fill: #202124;
   }
 `;
+const EditedAtText = styled(Typography)`
+  width: fit-content;
+  margin-left: auto;
+  padding: 0 12px;
+  color: rgba(0, 0, 0, 0.8);
+`;
 
 export default function ModalNote({
   handleClose,
@@ -60,6 +68,7 @@ export default function ModalNote({
         <Input
           value={note.title}
           placeholder="Заголовок"
+          sx={{ fontSize: "22px" }}
           onChange={(e) =>
             updateNote(note.id, { ...note, title: e.target.value })
           }
@@ -68,11 +77,16 @@ export default function ModalNote({
           value={note.value}
           multiline
           placeholder="Заметка.."
+          sx={{ paddingTop: "5px" }}
           autoFocus
           onChange={(e) =>
             updateNote(note.id, { ...note, value: e.target.value })
           }
         />
+        <EditedAtText
+          fontSize="12px"
+          sx={{ marginLeft: "auto", width: "fit-content" }}
+        >{`Редактировано ${fromNowTimeFormat(note.lastEdited)}`}</EditedAtText>
         <List sx={{ display: "flex", padding: "12px 16px" }}>
           {actions.map(({ icon, label, callback }) => (
             <IconButtonStyled

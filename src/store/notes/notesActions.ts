@@ -12,9 +12,13 @@ export const NOTES_ACTIONS = {
   DELETED: "notes/deleted",
 } as const;
 
-export const addNote = (note: noteType) => ({
+export const addNote = (note: {
+  value: string;
+  title: string;
+  status: string;
+}) => ({
   type: NOTES_ACTIONS.ADDED,
-  payload: { note },
+  payload: { note: { ...note, id: "", lastEdited: new Date() } as noteType },
 });
 export const updateNote = (id: string, note: noteType) => ({
   type: NOTES_ACTIONS.UPDATED,

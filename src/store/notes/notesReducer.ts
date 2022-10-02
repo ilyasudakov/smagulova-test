@@ -30,7 +30,9 @@ export default function notesReducer(
     }
     case NOTES_ACTIONS.UPDATED: {
       const _notes = notes.map((item) =>
-        item.id === action.payload.id ? action.payload.note : item
+        item.id === action.payload.id
+          ? { ...action.payload.note, lastEdited: new Date() }
+          : item
       );
       saveNotesInStorage(_notes);
       return _notes;
