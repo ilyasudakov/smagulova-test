@@ -8,6 +8,7 @@ import {
 
 import notesReducer from "../store/notes/notesReducer";
 import { addNote, deleteNote, updateNote } from "../store/notes/notesActions";
+import useScreenSize from "./useScreenSize";
 
 // Контекст, который выполняет функцию глобального стора, в данном случае конечно
 // лучше использовать state менеджер типо Redux/MobX, для лучшей эффективности,
@@ -73,7 +74,8 @@ export function MainContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [menuIsOpen, setOpenMenu] = useState(true);
+  const [screenWidth] = useScreenSize();
+  const [menuIsOpen, setOpenMenu] = useState(screenWidth >= 768);
   const [curPage, setCurPage] = useState<pages>("Заметки");
   const [searchQuery, setSearchQuery] = useState("");
 

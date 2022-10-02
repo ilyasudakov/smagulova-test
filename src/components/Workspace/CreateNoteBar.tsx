@@ -76,9 +76,8 @@ export default function CreateNoteBar({
             <StyledInputBase
               placeholder="Заметка.."
               inputProps={{ "aria-label": "заметка" }}
-              autoFocus
               value=""
-              onClick={() => setIsOpen(true)}
+              onFocus={() => setIsOpen(true)}
             />
           )}
         </Input>

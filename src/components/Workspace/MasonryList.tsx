@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import Masonry from "@mui/lab/Masonry";
 
@@ -28,8 +28,12 @@ export default function MasonryList({
     setShowModal(true);
   };
 
-  const filteredNotes = notes.filter(({ value }) =>
-    value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+  const filteredNotes = useMemo(
+    () =>
+      notes.filter(({ value }) =>
+        value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+      ),
+    [notes, searchQuery]
   );
   const selected = notes.find(({ id }) => selectedNote === id) || {
     value: "",
