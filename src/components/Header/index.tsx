@@ -11,6 +11,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
+import ViewAgendaOutlinedIcon from "@mui/icons-material/ViewAgendaOutlined";
+
 import Searchbar from "./Searchbar";
 
 import useMainContext from "../../hooks/useMainContext";
@@ -26,7 +29,8 @@ const AppBarStyled = styled(AppBar)`
 `;
 
 export default function Header() {
-  const { setOpenMenu, setSearchQuery, searchQuery } = useMainContext();
+  const { setOpenMenu, setSearchQuery, searchQuery, view, setView } =
+    useMainContext();
   const [showSearch, setShowSearch] = useState(false);
 
   return (
@@ -101,8 +105,21 @@ export default function Header() {
               aria-label="Search"
               color="inherit"
               onClick={() => setShowSearch(!showSearch)}
+              sx={{ display: { xs: "inline-flex", md: "none" } }}
             >
               <SearchIcon />
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="View"
+              color="inherit"
+              onClick={() => setView(view === "list" ? "grid" : "list")}
+            >
+              {view === "list" ? (
+                <GridViewOutlinedIcon />
+              ) : (
+                <ViewAgendaOutlinedIcon />
+              )}
             </IconButton>
             <IconButton
               size="large"

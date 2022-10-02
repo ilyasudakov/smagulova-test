@@ -26,10 +26,14 @@ export const PageToStatus: { [i in pages]: noteType["status"] } = {
   Архив: "Архив",
   Корзина: "Корзина",
 };
+type views = "list" | "grid";
 //Тип контекста
 export type MainContextType = {
   curPage: pages;
   setCurPage: (page: pages) => void;
+
+  view: views;
+  setView: (view: views) => void;
 
   menuIsOpen: boolean;
   setOpenMenu: () => void;
@@ -51,6 +55,9 @@ const initialValue: MainContextType = {
   menuIsOpen: true,
   setOpenMenu: () => {},
 
+  view: "list",
+  setView: () => {},
+
   searchQuery: "",
   setSearchQuery: () => {},
 
@@ -63,6 +70,17 @@ const initialValue: MainContextType = {
   notes: [],
 };
 export const MainContext = createContext<MainContextType>(initialValue);
+
+const defaultValue: noteType[] = [
+  { id: "1", title: "Очень важно", value: "Моя задача №1", status: "Активно" },
+  {
+    id: "2",
+    title: "",
+    value: "Выполнить техническое задание",
+    status: "Архив",
+  },
+  { id: "3", title: "", value: "Оформить баг-репорт", status: "Активно" },
+];
 
 // Хук для упрощения использования данных из контекста
 export default function useMainContext() {
@@ -78,17 +96,9 @@ export function MainContextProvider({
   const [menuIsOpen, setOpenMenu] = useState(screenWidth >= 768);
   const [curPage, setCurPage] = useState<pages>("Заметки");
   const [searchQuery, setSearchQuery] = useState("");
+  const [view, setView] = useState<views>("grid");
 
-  const [notes, dispatch] = useReducer(notesReducer, [
-    { id: "1", title: "Название", value: "Моя задача №1", status: "Активно" },
-    {
-      id: "2",
-      title: "",
-      value: "Выполнить техническое задание",
-      status: "Архив",
-    },
-    { id: "3", title: "", value: "Оформить баг-репорт", status: "Активно" },
-  ]);
+  const [notes, dispatch] = useReducer(notesReducer, defaultValue);
   // Мемоизированные заметки
   const { notes: memoizedNotes, dispatch: memoizedDispatch } = useMemo(
     () => ({ notes, dispatch }),
@@ -98,6 +108,9 @@ export function MainContextProvider({
   return (
     <MainContext.Provider
       value={{
+        view,
+        setView,
+
         curPage,
         setCurPage,
 

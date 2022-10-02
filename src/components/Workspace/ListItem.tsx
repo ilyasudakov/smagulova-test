@@ -8,10 +8,11 @@ import { Box } from "@mui/system";
 import useActions from "../../hooks/useActions";
 
 const CardStyled = styled(Card)`
-  width: fit-content;
+  width: 100%;
   border-radius: 8px !important;
   border: 1px solid #e0e0e0;
   box-shadow: none !important;
+  max-width: 600px;
 
   .MuiCardActions-root {
     transition: 0.1s ease-in-out;

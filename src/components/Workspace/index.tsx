@@ -11,7 +11,8 @@ const Wrapper = styled(Box)`
 `;
 
 export default function Workspace() {
-  const { notes, addNote, searchQuery, curPage, updateNote } = useMainContext();
+  const { notes, addNote, searchQuery, curPage, updateNote, view } =
+    useMainContext();
 
   return (
     <Wrapper>
@@ -22,6 +23,7 @@ export default function Workspace() {
         updateNote={updateNote}
         notes={notes.filter(({ status }) => status === PageToStatus[curPage])}
         searchQuery={searchQuery}
+        view={view}
       />
     </Wrapper>
   );
