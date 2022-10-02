@@ -56,10 +56,11 @@ export default function Header() {
             </IconButton>
             <Logo src="/keep_logo.png" alt="logo" />
             <Typography
-              variant="h6"
+              fontFamily="Product Sans Regular"
               noWrap
               component="div"
               sx={{
+                fontSize: "22px",
                 display: { xs: "none", sm: "block" },
                 paddingLeft: "4px",
                 paddingRight: "10px",

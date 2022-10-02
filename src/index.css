@@ -1,7 +1,28 @@
+@font-face {
+  font-family: "Product Sans Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Product Sans Regular"),
+    url("./assets/fonts/ProductSans/ProductSans-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("./assets/fonts/GoogleSans/GoogleSans-Regular.eot");
+  src: local("Google Sans Regular"), local("GoogleSans-Regular"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Regular.eot")
+      format("embedded-opentype"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Regular.woff2") format("woff2"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Regular.woff") format("woff"),
+    url("./assets/fonts/GoogleSans/GoogleSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: "Noto Sans", "Roboto", sans-serif;
+  font-family: "Google Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
