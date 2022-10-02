@@ -33,8 +33,10 @@ export default function MasonryList({
 
   const filteredNotes = useMemo(
     () =>
-      notes.filter(({ value }) =>
-        value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+      notes.filter(
+        ({ value, title }) =>
+          title.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()) ||
+          value.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
       ),
     [notes, searchQuery]
   );
