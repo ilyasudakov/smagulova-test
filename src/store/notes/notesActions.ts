@@ -24,6 +24,8 @@ export const deleteNote = (id: string) => ({
   type: NOTES_ACTIONS.DELETED,
   payload: { id },
 });
+
+// Сохранение заметок в local Storage
 export const saveNotesInStorage = (notes: noteType[]) => {
   localStorage.setItem("notes", JSON.stringify(notes));
 };

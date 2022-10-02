@@ -105,6 +105,7 @@ export function MainContextProvider({
 
   const [notes, dispatch] = useReducer(
     notesReducer,
+    // Если есть заметки в localStorage, загружаем их
     loadNotesFromStorage() || defaultValue
   );
   // Мемоизированные заметки
