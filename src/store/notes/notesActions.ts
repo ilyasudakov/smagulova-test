@@ -24,3 +24,11 @@ export const deleteNote = (id: string) => ({
   type: NOTES_ACTIONS.DELETED,
   payload: { id },
 });
+export const saveNotesInStorage = (notes: noteType[]) => {
+  localStorage.setItem("notes", JSON.stringify(notes));
+};
+export const loadNotesFromStorage = () => {
+  const cached = localStorage.getItem("notes");
+  if (cached === "undefined" || cached === null) return null;
+  return JSON.parse(cached !== "undefined" ? cached : "[]");
+};

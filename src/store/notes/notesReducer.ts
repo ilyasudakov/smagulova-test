@@ -1,6 +1,12 @@
 import { noteType } from "../../hooks/useMainContext";
 
-import { addNote, deleteNote, NOTES_ACTIONS, updateNote } from "./notesActions";
+import {
+  addNote,
+  deleteNote,
+  NOTES_ACTIONS,
+  saveNotesInStorage,
+  updateNote,
+} from "./notesActions";
 
 // Доступные действия для заметок
 
@@ -14,17 +20,26 @@ export default function notesReducer(
   action: actionsType
 ): noteType[] {
   switch (action.type) {
-    case NOTES_ACTIONS.ADDED:
-      return [
+    case NOTES_ACTIONS.ADDED: {
+      const _notes = [
         ...notes,
         { ...action.payload.note, id: new Date().toISOString() },
       ];
-    case NOTES_ACTIONS.UPDATED:
-      return notes.map((item) =>
+      saveNotesInStorage(_notes);
+      return _notes;
+    }
+    case NOTES_ACTIONS.UPDATED: {
+      const _notes = notes.map((item) =>
         item.id === action.payload.id ? action.payload.note : item
       );
-    case NOTES_ACTIONS.DELETED:
-      return notes.filter((item) => item.id !== action.payload.id);
+      saveNotesInStorage(_notes);
+      return _notes;
+    }
+    case NOTES_ACTIONS.DELETED: {
+      const _notes = notes.filter((item) => item.id !== action.payload.id);
+      saveNotesInStorage(_notes);
+      return _notes;
+    }
     default:
       return notes;
   }

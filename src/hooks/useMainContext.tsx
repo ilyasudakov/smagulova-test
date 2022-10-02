@@ -7,7 +7,12 @@ import {
 } from "react";
 
 import notesReducer from "../store/notes/notesReducer";
-import { addNote, deleteNote, updateNote } from "../store/notes/notesActions";
+import {
+  addNote,
+  deleteNote,
+  loadNotesFromStorage,
+  updateNote,
+} from "../store/notes/notesActions";
 import useScreenSize from "./useScreenSize";
 
 // Контекст, который выполняет функцию глобального стора, в данном случае конечно
@@ -98,7 +103,10 @@ export function MainContextProvider({
   const [searchQuery, setSearchQuery] = useState("");
   const [view, setView] = useState<views>("grid");
 
-  const [notes, dispatch] = useReducer(notesReducer, defaultValue);
+  const [notes, dispatch] = useReducer(
+    notesReducer,
+    loadNotesFromStorage() || defaultValue
+  );
   // Мемоизированные заметки
   const { notes: memoizedNotes, dispatch: memoizedDispatch } = useMemo(
     () => ({ notes, dispatch }),
